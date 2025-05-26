@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+*{
+    @apply font-onest
+}
+
+// PROMO
+.promo{
+    @apply w-full bg-black text-white py-2;
+    .content{
+        @apply container mx-auto grid grid-cols-[1fr_3fr_1fr];
+        .text{
+            @apply flex items-center justify-center text-sm gap-2;
+            a{
+                @apply font-semibold text-sm underline text-white;
+            }
+        }
+        .lang{
+            @apply flex text-sm items-center justify-end gap-1 ;
+            .icon{
+                @apply text-sm
+            }
+        }
+
+    }
+}
+// NAVBAR
+.navbar{
+    @apply container mx-auto flex justify-between items-center py-3 ;
+    .website-name{
+        @apply font-bold text-2xl
+    }
+    nav{
+        @apply flex gap-3
+    }
+    .options{
+        @apply flex items-center gap-2;
+        .search{
+            @apply bg-light-gray px-3 py-1 rounded-lg flex justify-between items-center;
+            input{
+                @apply w-[200px]  outline-none border-none text-sm;
+                background: none;
+            }
+            .icon{
+                @apply text-black
+            }
+        }
+    }
+}
+
+// CATALOG
+.catalog{
+    @apply container mx-auto py-5 grid grid-cols-[1fr_4fr]; 
+
+    .main{
+        @apply w-full mx-auto grid grid-cols-4 gap-5 mb-2 ;
+}
+}
+
+.item-container{
+    @apply flex flex-col;
+    .picture{
+        @apply h-[250px] w-full relative  overflow-hidden bg-white;
+        
+        img{
+             @apply h-full w-full absolute object-contain p-5
+        }
+    }
+}
