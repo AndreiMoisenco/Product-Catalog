@@ -23,8 +23,10 @@ function Products({}){
             {
             catalog ? (
             <div className="">
-                <Promo/>
-                <Navbar />
+                {/* <Promo/> */}
+                <div className="border-b-[2px]">
+                    <Navbar />
+                </div>
                 
                     
                     <Catalog catalog={ catalog} />

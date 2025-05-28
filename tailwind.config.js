@@ -14,7 +14,8 @@ export default {
       'black': '#000000',
       'white': '#fff',
       'red': '#ef233c',
-      'light-gray': "#ececec"
+      'light-gray': "#ececec",
+      'dark-gray': "#898989",
     }
   },
   

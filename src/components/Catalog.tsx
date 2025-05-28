@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import Item from "./Item";
+import { FaPlus } from "react-icons/fa6";
+
 
 interface Beer {
   id: number;
@@ -11,7 +13,7 @@ interface Beer {
 }
 
 interface CatalogProps {
-  catalog: Beer[];
+  catalog: Item[];
 }
 
 interface Filters {
@@ -19,9 +21,18 @@ interface Filters {
   minPrice: number;
   maxPrice: number;
 }
+interface Item {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  image: string;
+  [key: string]: any;
+}
 
 export default function Catalog({ catalog }: CatalogProps) {
-  const [catalogBeers, setCatalogBeers] = useState<Beer[]>(catalog);
+  const [catalogItems, setCatalogItems] = useState<Item[]>(catalog);
+  const [showFilters, setShowFilters] = useState<boolean>(true);
   const [filters, setFilters] = useState<Filters>({
     category: "",
     minPrice: 0,
@@ -82,69 +93,110 @@ export default function Catalog({ catalog }: CatalogProps) {
 
     if (filters.category !== "") {
       tempCatalog = tempCatalog.filter(
-        (beer) => beer.category.toLowerCase() === filters.category.toLowerCase()
+        (item) => item.category.toLowerCase() === filters.category.toLowerCase()
       );
     }
 
     if (filters.minPrice > 0) {
-      tempCatalog = tempCatalog.filter((beer) => beer.price >= filters.minPrice);
+      tempCatalog = tempCatalog.filter((item) => item.price >= filters.minPrice);
     }
 
     if (filters.maxPrice > 0) {
-      tempCatalog = tempCatalog.filter((beer) => beer.price <= filters.maxPrice);
+      tempCatalog = tempCatalog.filter((item) => item.price <= filters.maxPrice);
     }
 
-    setCatalogBeers(tempCatalog);
+    setCatalogItems(tempCatalog);
   }, [filters, catalog]);
 
   return (
     <div>
       {catalog ? (
-        <div className="catalog">
-          <div className="side">
-            <p className="title font-coustard text-2xl text-dark-blue">Categories</p>
-             <select onChange={(ev) => {
-               setFilters({...filters, category: ev.target.value})
-              }} >
+        <div>
+          <div className="top">
+            <div className="box">
+              <h1>Catalog</h1>
+            </div>
+            <div className="box v2">
+              <div className="element">
+                <p>{catalog.length}</p>
+                <p>products</p>
+              
+              </div>
+              <div
+                className="element"
+                onClick={() => setShowFilters((prev) => !prev)} // <-- update this
+              >
+                <p>Filters</p>
+                <FaPlus />
+              </div>
+              
+            </div>
+              
+          </div>
+         {showFilters && ( // <-- update this
+            <div className="filters" id="filters">
+              <div>
+                <p className="title ">Categories</p>
+              <select
+                onChange={(ev) => {
+                  setFilters({ ...filters, category: ev.target.value });
+                }}
+              >
                 <option value="">All</option>
                 <option value="men's clothing">Men's clothing</option>
                 <option value="jewelery">Jewelery</option>
                 <option value="electronics">Electronics</option>
-                                        
-             </select>
-             <p className="title font-coustard text-2xl text-dark-blue pt-5">Price</p>
-            <div>
-              <div className="price-input pt-4">
-                <input
-                    type="number"
-                    placeholder="minPrice"
+              </select>
+              </div>
+              <div>
+                <p className="title">Price Range</p>
+                <div className="range-input ">
+                  <input
+                    placeholder="Min"
+                    
                     onChange={(ev) =>
                       setFilters({ ...filters, minPrice: Number(ev.target.value) })
                     }
-                    value={filters.minPrice}
-                    className="input-min"
+                    
                   />
                   <input
-                    type="number"
-                    placeholder="maxPrice"
+                    
+                    
                     onChange={(ev) =>
                       setFilters({ ...filters, maxPrice: Number(ev.target.value) })
                     }
-                    value={filters.maxPrice}
-                    className="input-max"
+                    placeholder="Max"
+                    
                   />
-              </div> 
-              </div> 
-                                         
-                                     
-                                     
-          </div>
+                  <div className="slider">
+                    <div className="progress"></div>
+                  </div>
+                </div>
+              </div>
+              
+              
+            </div>
+          )}
+          
+          <div className="catalog">
+          
           <div className="main">
-            {catalogBeers.map((test, index) => (
-                <Item test={test} index={index} key={index} />
-    ))}
+            {catalogItems.map((test, index) => (
+              <Item
+                test={{
+                  id: test.id,
+                  title: test.title, 
+                  price: test.price,
+                  image: test.image 
+                }}
+                index={index}
+                key={index}
+              />
+            ))}
           </div>
         </div>
+        </div>
+        
       ) : (
         <Loader />
       )}

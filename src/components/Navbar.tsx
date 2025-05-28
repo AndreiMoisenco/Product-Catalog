@@ -1,27 +1,26 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Navbar(){
     return(
        
-             <div className="navbar ">
+        <div className="navbar ">
+            
+            <div className="left">
+                <Link to="/products"> Catalog</Link>
+                <Link to="/brands"> Brands</Link>
+            </div>
             <a className="website-name" href="">Neron</a>
-            <nav>
-                <a href="">Home</a>
-                <a href="">Contact</a>
-                <a href="">About</a>
-                <a href="">Sign Up</a>
-            </nav>
-            <div className="options">
-                <div className="search">
-                    <input type="search" placeholder="What are you looking for?"/>
-                   <FaSearch className="icon" />
-
-
-                    {/* <i className="fa-solid fa-magnifying-glass"></i> */}
+            <div className="right">
+                <div>
+                    <FaSearch className="icon" />
+                    {/* <input type="search" placeholder="search"/> */}
                 </div>
-                <a href=""><i className="fa-solid fa-heart"></i></a>
-                 <FaShoppingCart />
+                <div>
+                    <FaShoppingCart />
+                    
+                </div>
             </div>
         </div>
         

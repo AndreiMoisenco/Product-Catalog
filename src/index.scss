@@ -34,9 +34,19 @@
     .website-name{
         @apply font-bold text-2xl
     }
+    .left{
+        @apply flex items-center gap-4;
+    }
+    
+    .right{
+        @apply flex items-center gap-4;
+    }
+
+
     nav{
         @apply flex gap-3
     }
+
     .options{
         @apply flex items-center gap-2;
         .search{
@@ -52,22 +62,158 @@
     }
 }
 
+
+// FILTERS
+.top{
+    @apply container mx-auto grid grid-cols-2 py-7;
+    .box{
+        @apply flex items-end ;
+        h1{
+            @apply text-9xl font-semibold mb-2 uppercase;
+        }
+        div{
+            @apply flex items-center gap-2;
+        }
+    }
+    .v2{
+        @apply justify-end gap-7;
+    }
+}
+.filters{
+    @apply container mx-auto gap-9 flex justify-end border-b-2 p-2;
+    .title{
+        @apply text-2xl ;
+    }
+    .range-input{
+        @apply flex items-center gap-2
+    }
+    input{
+        @apply outline-none border-none bg-light-gray px-3 py-1 rounded-lg text-sm;
+        
+    }
+}
 // CATALOG
 .catalog{
-    @apply container mx-auto py-5 grid grid-cols-[1fr_4fr]; 
+    @apply container mx-auto py-5 ; 
 
     .main{
-        @apply w-full mx-auto grid grid-cols-4 gap-5 mb-2 ;
+        @apply w-full mx-auto grid grid-cols-4 gap-8 mb-2 ;
 }
 }
 
-.item-container{
-    @apply flex flex-col;
-    .picture{
-        @apply h-[250px] w-full relative  overflow-hidden bg-white;
+.item-container {
+    @apply flex flex-col items-center bg-white  shadow-sm        p-4 m-0 border-2 hover:shadow-md h-full relative;
+    .icon{
+            @apply absolute text-3xl text-white bg-black    rounded-full p-2;
+            top: 10px;  
+            right: 10px;
+            
+        }
+    .picture {
+        @apply w-full h-48 flex items-center justify-center mb-3;
+        img {
+            @apply max-h-full max-w-full object-contain;
+        }
         
-        img{
-             @apply h-full w-full absolute object-contain p-5
+    }
+    .text{
+        @apply w-full;
+        .title {
+            @apply text-lg font-semibold;
+        }
+        .price{
+            @apply text-xl font-semibold ;
+        }
+        .add-to-cart{
+            @apply bg-black text-white px-4 py-2 text-sm font-semibold flex items-center justify-center;
         }
     }
 }
+
+
+// DETAILS
+.details{
+  
+    .main{
+        @apply container mx-auto  ;
+        .upper{
+            @apply py-3  pb-6;
+            p{
+                @apply text-sm text-dark-gray ;
+                span{
+                    @apply text-black ;
+                }
+            }
+        }
+        .middle{
+            @apply grid gap-3;
+            
+            grid-template-columns: 1fr 2fr 1fr;
+            
+            .col{
+                
+                
+            }
+            .left{
+                @apply flex flex-col justify-between;
+                .title{
+                    @apply text-3xl font-semibold ;
+                }
+                .min-title{
+                    @apply text-sm capitalize font-semibold 
+                }
+                .price-container{
+                    @apply flex justify-between ;
+                    .price{
+                        @apply text-3xl font-semibold ;
+                    }
+                    div{
+                        @apply flex flex-col;
+                        .discount{
+                            @apply text-lg font-semibold;
+                        }
+                        .old-price{
+                            @apply text-sm font-semibold text-dark-gray;
+                        }
+                    }
+                }
+                .add-options{
+                    @apply  grid  gap-3 ;
+                    grid-template-columns: 6fr 1fr;
+                        .addToCart{
+                            @apply bg-black text-white px-4 py-2  text-sm font-semibold flex items-center justify-center ;
+                        }
+                        .like{
+                            @apply flex items-center justify-center gap-2 text-sm font-semibold bg-black text-white ;
+                            
+                        }
+                   }
+                
+                }
+
+        }
+        .right{
+            @apply flex flex-col gap-3;
+            .title{
+                @apply text-2xl font-semibold;
+            }
+            .description{
+                @apply capitalize;
+            }
+        }
+        .image-container{
+            @apply flex items-center justify-center;
+            img{
+                @apply max-h-[400px] max-w-full object-contain;
+            }
+        }
+    }
+}
+
+
+// @media screen and (max-width: 1468px) {
+//         .container{
+//             @apply w-[1180px]
+//         }
+    
+// }
