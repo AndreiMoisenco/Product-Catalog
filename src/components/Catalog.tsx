@@ -126,7 +126,7 @@ export default function Catalog({ catalog }: CatalogProps) {
                 className="element"
                 onClick={() => setShowFilters((prev) => !prev)} // <-- update this
               >
-                <p>Filters</p>
+                <p className="cursor-pointer">Filters</p>
                 <FaPlus />
               </div>
               
@@ -136,7 +136,7 @@ export default function Catalog({ catalog }: CatalogProps) {
          {showFilters && ( // <-- update this
             <div className="filters" id="filters">
               <div>
-                <p className="title ">Categories</p>
+                <p className="title ">Categories </p>
               <select
                 onChange={(ev) => {
                   setFilters({ ...filters, category: ev.target.value });
@@ -149,7 +149,7 @@ export default function Catalog({ catalog }: CatalogProps) {
               </select>
               </div>
               <div>
-                <p className="title">Price Range</p>
+                <p className="title">Price Range </p>
                 <div className="range-input ">
                   <input
                     placeholder="Min"
@@ -187,7 +187,11 @@ export default function Catalog({ catalog }: CatalogProps) {
                   id: test.id,
                   title: test.title, 
                   price: test.price,
-                  image: test.image 
+                  image: test.image,
+                  rating: {
+                      rate: test.rating.rate,
+                      count: test.rating.count
+                }
                 }}
                 index={index}
                 key={index}

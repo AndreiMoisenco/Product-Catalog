@@ -1,38 +1,51 @@
-// import { useCart } from "./CartContext";
-// import { CartItem } from "../types/cart";
+import { useShoppingCart } from "../context/CartContext";
+import { Offcanvas } from "react-bootstrap";
+import CartItem from "./CartItem";
+import { IoMdClose } from "react-icons/io";
 
-// export function Cart() {
-//   const { cart, removeFromCart, updateQuantity } = useCart();
+type CartProps = {
+    isOpen: boolean;
+}
 
-//   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-//   return (
-//     <div className="cart">
-//       <h2>Shopping Cart</h2>
-//       {cart.length === 0 ? (
-//         <p>Your cart is empty</p>
-//       ) : (
-//         <>
-//           {cart.map((item: CartItem) => (
-//             <div key={item.id} className="cart-item">
-//               <img src={item.image} alt={item.name} width="50" />
-//               <div>
-//                 <h3>{item.name}</h3>
-//                 <p>${item.price}</p>
-//                 <div className="quantity-controls">
-//                   <button onClick={() => updateQuantity(item.id, -1)}>-</button>
-//                   <span>{item.quantity}</span>
-//                   <button onClick={() => updateQuantity(item.id, 1)}>+</button>
-//                 </div>
-//                 <button onClick={() => removeFromCart(item.id)}>Remove</button>
-//               </div>
-//             </div>
-//           ))}
-//           <div className="cart-total">
-//             <h3>Total: ${total.toFixed(2)}</h3>
-//           </div>
-//         </>
-//       )}
-//     </div>
-//   );
-// }
+export default function Cart({ isOpen }: CartProps) {
+    const { closeCart, cartItems } = useShoppingCart();
+    // const getPrice = (id: number) => cartItems.find(p => p.id === id)?.price || 0;
+    return (
+         <Offcanvas show={isOpen} onHide={closeCart} className="cart-container" placement="end">
+                <div className="cart">
+            
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title className="title">Cart</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    {cartItems.length === 0 ? (
+                        <p className="empty">Your cart is empty.</p>
+                    ) : (
+                        cartItems.map(item => (
+                            <CartItem key={item.id} {...item} />
+                        ))
+                    )}
+                    <p onClick={closeCart} className="close cursor-pointer"><IoMdClose /></p>
+                    <div className="total">
+                            
+                    
+                        <div>
+                            <p>
+                                Total:
+                            </p>
+                             {cartItems.reduce((total, item) => total + item.quantity, 0)} items
+                             {/* {
+                                cartItems
+                                    .reduce((total, item) => total + getPrice(item.id) * item.quantity, 0)
+                                    .toFixed(2)
+                            } */}
+        
+                            
+                        </div>
+                    </div>
+                </Offcanvas.Body>
+                </div>
+            </Offcanvas>
+        
+    );
+}

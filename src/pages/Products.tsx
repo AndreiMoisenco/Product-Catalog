@@ -3,8 +3,9 @@ import Catalog from '../components/Catalog'
 import Loader from "../components/Loader"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { data } from "react-router-dom"
-import Promo from "../components/Promo"
+import Footer from "../components/Footer"
+
+
 
 function Products({}){
     const [catalog, setCatalog] = useState(null)
@@ -12,7 +13,7 @@ function Products({}){
     axios
       .get("https://fakestoreapi.com/products")
       .then((result) => {
-        const sliced = result.data.slice(0, 10); // limit to 10 items
+        const sliced = result.data.slice(0, 20); // limit to 10 items
         setCatalog(sliced);
         console.log(sliced); // log the 10 items
       })
@@ -23,15 +24,18 @@ function Products({}){
             {
             catalog ? (
             <div className="">
-                {/* <Promo/> */}
+                
                 <div className="border-b-[2px]">
                     <Navbar />
                 </div>
                 
+                
                     
                     <Catalog catalog={ catalog} />
                 
-                
+                <div className="border-t-[2px] mt-14">
+                    <Footer/>
+                </div>
             </div>
             ) : 
             (

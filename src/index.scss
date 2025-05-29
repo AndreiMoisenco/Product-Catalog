@@ -8,26 +8,7 @@
     @apply font-onest
 }
 
-// PROMO
-.promo{
-    @apply w-full bg-black text-white py-2;
-    .content{
-        @apply container mx-auto grid grid-cols-[1fr_3fr_1fr];
-        .text{
-            @apply flex items-center justify-center text-sm gap-2;
-            a{
-                @apply font-semibold text-sm underline text-white;
-            }
-        }
-        .lang{
-            @apply flex text-sm items-center justify-end gap-1 ;
-            .icon{
-                @apply text-sm
-            }
-        }
 
-    }
-}
 // NAVBAR
 .navbar{
     @apply container mx-auto flex justify-between items-center py-3 ;
@@ -43,23 +24,7 @@
     }
 
 
-    nav{
-        @apply flex gap-3
-    }
-
-    .options{
-        @apply flex items-center gap-2;
-        .search{
-            @apply bg-light-gray px-3 py-1 rounded-lg flex justify-between items-center;
-            input{
-                @apply w-[200px]  outline-none border-none text-sm;
-                background: none;
-            }
-            .icon{
-                @apply text-black
-            }
-        }
-    }
+    
 }
 
 
@@ -79,8 +44,29 @@
         @apply justify-end gap-7;
     }
 }
+.upper{
+    @apply container mx-auto;
+    .box{
+        @apply flex items-end ;
+        h1{
+            @apply text-9xl font-semibold mb-2 uppercase;
+        }
+        div{
+            @apply flex items-center gap-2;
+        }
+    }
+    p{
+        @apply bg-black text-white px-4 py-2 rounded-lg text-sm font-semibold w-fit flex items-center gap-3 cursor-pointer;
+    } 
+}
 .filters{
-    @apply container mx-auto gap-9 flex justify-end border-b-2 p-2;
+    @apply container mx-auto gap-[30px] flex justify-end border-b-2 p-2 py-4;
+    div{
+        @apply flex gap-3;
+        select{
+            @apply bg-light-gray rounded-lg overflow-hidden px-1;
+        }
+    }
     .title{
         @apply text-2xl ;
     }
@@ -89,7 +75,9 @@
     }
     input{
         @apply outline-none border-none bg-light-gray px-3 py-1 rounded-lg text-sm;
-        
+        &::placeholder{
+            @apply text-black;
+        }
     }
 }
 // CATALOG
@@ -102,7 +90,7 @@
 }
 
 .item-container {
-    @apply flex flex-col items-center bg-white  shadow-sm        p-4 m-0 border-2 hover:shadow-md h-full relative;
+    @apply flex flex-col items-center bg-white  shadow-sm        p-4 m-0 border-2 hover:shadow-md h-full relative cursor-pointer;
     .icon{
             @apply absolute text-3xl text-white bg-black    rounded-full p-2;
             top: 10px;  
@@ -136,8 +124,8 @@
   
     .main{
         @apply container mx-auto  ;
-        .upper{
-            @apply py-3  pb-6;
+        .upper-details{
+            @apply py-2  pb-6;
             p{
                 @apply text-sm text-dark-gray ;
                 span{
@@ -217,3 +205,86 @@
 //         }
     
 // }
+
+// CART
+.cart-container{
+    @apply fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40 flex items-center justify-center;
+    
+}
+.cart{
+    @apply absolute top-0 right-0 w-[400px] h-full bg-white z-50 flex flex-col border-l-2 p-4; 
+    .title{
+        @apply text-2xl font-semibold flex justify-center items-center
+    }
+    .empty{
+        @apply flex items-center justify-center py-10;
+        
+    }
+    .close{
+        @apply absolute top-2 left-2 text-2xl cursor-pointer;
+    }
+    .total{
+        @apply border-t-2 py-4 mt-4;
+        div{
+            @apply flex justify-between items-center;
+            p{
+                @apply text-xl font-semibold;
+            }
+            
+        }
+    }
+}
+
+// CART_ITEM
+.cart-item{
+    @apply flex items-center justify-between gap-3 mb-4 border-2 p-2;
+    .image{
+        @apply w-[80px] h-[80px] flex items-center justify-center;
+        img{
+            @apply max-h-full max-w-full object-contain;
+        }
+    }
+    .text{
+        @apply flex flex-col gap-1;
+        .title{
+            @apply text-lg font-semibold;
+        }
+        .price{
+            @apply text-xl font-semibold;
+        }
+    }
+    .quantity{
+        @apply flex items-center gap-2;
+        input{
+            @apply w-[50px] text-center outline-none border-none bg-light-gray px-2 py-1 rounded-lg text-sm;
+        }
+    }
+}
+
+
+// FOOTER
+.footer{
+    @apply container mx-auto flex justify-between items-center py-3 ;
+    .website-name{
+        @apply font-bold text-2xl
+    }
+    .left{
+        @apply flex items-center gap-4;
+    }
+    
+    .right{
+        @apply flex items-center gap-4;
+    }
+
+
+    
+}
+
+// NOTIFICATION
+.notification{
+    @apply fixed bg-white text-xl text-black p-3  border-2  top-0   z-50;
+      left: 50%;
+  transform: translateX(-50%);
+    //  transform: translate(-50%, -50%);
+    
+}

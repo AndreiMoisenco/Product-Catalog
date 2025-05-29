@@ -4,29 +4,51 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 import Loader from "../components/Loader"
 import { FaRegHeart } from "react-icons/fa";
+import Footer from "../components/Footer"
+import { useShoppingCart } from "../context/CartContext";
+import Notification from "../components/Notification"
 
-
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
 export default function Details() {
-  const [item, setItem] = useState(null)
-  const {id} = useParams()
+  const [item, setItem] = useState<Product | null>(null)
+  const{getItemQuantity, increaseCartQuantity} = useShoppingCart();
+  const [showNotification, setShowNotification] = useState(false);
+  function handleAddToCart() {
+   
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 1500);}
+  const { id } = useParams<{ id: string }>()
   useEffect(() => {
-  axios.get(`https://fakestoreapi.com/products/${id}`)
-    .then((response) => {
-      setItem(response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching item details:", error);
-    });
-}, [id]);
+    axios.get(`https://fakestoreapi.com/products/${id}`)
+      .then((response) => {
+        setItem(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching item details:", error);
+      });
+  }, [id]);
   return (
     <div >
       {item ? (
-          <div className="details">
+       
+          <div className="details ">
+             {showNotification && <Notification />}
             <div className="border-b-[2px]">
               <Navbar />  
             </div>
-            <div className="main">
-              <div className="upper">
+            <div className="main h-screen">
+              <div className="upper-details">
                 <p>Collection <span className="capitalize">/ {item.category}</span></p>
               </div>
               <div className="middle">
@@ -46,7 +68,10 @@ export default function Details() {
                   </div>
                   
                   <div className="add-options">
-                    <div className="addToCart">
+                    <div className="addToCart cursor-pointer" onClick={() => {
+                                increaseCartQuantity(item.id);
+                                handleAddToCart();
+                            }}>
                       Add to Cart
                     </div>
                     <div className="like"> 
@@ -74,6 +99,9 @@ export default function Details() {
                 </div>
               </div>
             </div>
+            <div className="border-t-[2px] ">
+                    <Footer/>
+                </div>
           </div>
       ) : (
         <Loader />

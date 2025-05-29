@@ -5,8 +5,10 @@
 import { Link } from "react-router-dom";
 // import { AddToCartButton } from "./AddToCartButtonsProps";
 // import { CartItem } from "../types/cart";
+import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-
+import { useShoppingCart } from "../context/CartContext";
+import Notification from "./Notification";
 
         // interface ItemProps {
         // test: Omit<CartItem, 'quantity'>;
@@ -28,14 +30,22 @@ import { FaRegHeart } from "react-icons/fa";
 function Item({ test, index }: ItemProps){
     console.log("Test object:", test); 
     function getFirst4Words(str: string): string {
-        return str.split(" ").slice(0, 3).join(" ");
+        return str.split(" ").slice(0,3).join(" ");
     }
-
+     const [showNotification, setShowNotification] = useState(false);
+    const{getItemQuantity, increaseCartQuantity} = useShoppingCart();
+    const quantity = getItemQuantity(test.id);
+    function handleAddToCart() {
+    // console.log("Item added to cart:", test);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 1500);
+  }
     return(
         <div>
-            <Link to={`/item/${test.id}`}>
+            {showNotification && <Notification />}
             <div className="item-container">
                 <FaRegHeart  className="icon"/> 
+                <Link to={`/item/${test.id}`}>
                 <div className="picture">
                     
                         <img src={test.image }alt={test.title}/>
@@ -43,9 +53,10 @@ function Item({ test, index }: ItemProps){
                         
                         {/* <a href="" className="button">Add To Cart</a> */}
                     </div>
+                    </Link>
                     <div className="text">
                         <h2 className="title">{getFirst4Words(test.title)}</h2>
-                        {/* <p className="rating">Rating: {test.rating.rate} <span className="count">({test.rating.count})</span></p>    */}
+                        <p className="rating">Rating: {test.rating.rate} <span className="count">({test.rating.count})</span></p>   
                         <div className="price">
                             <small>{test.price} $</small>
                         </div>
@@ -57,15 +68,22 @@ function Item({ test, index }: ItemProps){
                             <i class="fa-solid fa-star-half-stroke"></i> */}
                             {/* <small>(88)</small> */}
                         </div>
-                        <div className="add-to-cart">
+                        <div className="add-to-cart"  onClick={() => {
+                                increaseCartQuantity(test.id);
+                                handleAddToCart();
+                            }}>
                             Add to Cart
                         </div>
+                       
+                        {/* <div className="quantity">
+                            {quantity > 0 && <span className="count">{quantity}</span>}
                         
                         
+                        </div> */}
                         
                     </div>
             </div>
-            </Link>
+            
         </div>
     )
 }
